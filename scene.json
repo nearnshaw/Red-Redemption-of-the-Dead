@@ -1,0 +1,72 @@
+{
+  "ecs7": true,
+  "runtimeVersion": "7",
+  "display": {
+    "title": "Red Redemption of the Dead",
+    "description": "Empty Scene Template",
+    "favicon": "favicon_asset",
+    "navmapThumbnail": ""
+  },
+  "owner": "",
+  "contact": {
+    "name": "SDK",
+    "email": ""
+  },
+  "main": "bin/index.js",
+  "tags": [],
+  "scene": {
+    "parcels": [
+      "0,0",
+      "0,1",
+      "0,2",
+      "1,0",
+      "1,1",
+      "1,2",
+      "2,0",
+      "2,1",
+      "2,2"
+    ],
+    "base": "0,0"
+  },
+  "spawnPoints": [
+    {
+      "name": "Spawn Point 1",
+      "default": true,
+      "position": {
+        "x": [
+          0,
+          3
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          3
+        ]
+      },
+      "cameraTarget": {
+        "x": 8,
+        "y": 1,
+        "z": 8
+      }
+    }
+  ],
+  "requiredPermissions": [
+    "ALLOW_TO_TRIGGER_AVATAR_EMOTE",
+    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
+  ],
+  "featureToggles": {
+    "voiceChat": "enabled",
+    "portableExperiences": "enabled"
+  },
+  "skyboxConfig": {
+    "fixedTime": 43200
+  },
+  "source": {
+    "origin": "creator-hub",
+    "projectId": "017f0f70-df49-46c8-8620-a985cb50c993"
+  },
+  "rating": "T"
+}
