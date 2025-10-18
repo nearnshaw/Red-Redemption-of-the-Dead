@@ -492,20 +492,20 @@
         "531": {
           "json": {
             "position": {
-              "x": 27,
+              "x": 32.5,
               "y": 0,
               "z": 26
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
             },
             "parent": 0
           }
@@ -1035,6 +1035,27 @@
             "parent": 0
           }
         },
+        "558": {
+          "json": {
+            "position": {
+              "x": 8,
+              "y": 3,
+              "z": 8.5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            "parent": 0
+          }
+        },
         "560": {
           "json": {
             "position": {
@@ -1097,6 +1118,48 @@
             },
             "parent": 0
           }
+        },
+        "563": {
+          "json": {
+            "position": {
+              "x": 28.25,
+              "y": 3,
+              "z": 8.5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            "parent": 0
+          }
+        },
+        "564": {
+          "json": {
+            "position": {
+              "x": 17,
+              "y": 0,
+              "z": 39.75
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            "parent": 0
+          }
         }
       }
     },
@@ -1115,6 +1178,11 @@
           }
         },
         "513": {
+          "json": {
+            "states": []
+          }
+        },
+        "558": {
           "json": {
             "states": []
           }
@@ -1148,6 +1216,33 @@
               },
               {
                 "clip": "TurnOut",
+                "playing": false,
+                "weight": 1,
+                "speed": 1,
+                "loop": false,
+                "shouldReset": false
+              }
+            ]
+          }
+        },
+        "563": {
+          "json": {
+            "states": []
+          }
+        },
+        "564": {
+          "json": {
+            "states": [
+              {
+                "clip": "Attacking",
+                "playing": false,
+                "weight": 1,
+                "speed": 1,
+                "loop": false,
+                "shouldReset": false
+              },
+              {
+                "clip": "Walking",
                 "playing": false,
                 "weight": 1,
                 "speed": 1,
@@ -1489,6 +1584,13 @@
             "visibleMeshesCollisionMask": 0,
             "invisibleMeshesCollisionMask": 3
           }
+        },
+        "564": {
+          "json": {
+            "src": "assets/custom/zombie/fixed-zombie.glb",
+            "visibleMeshesCollisionMask": 0,
+            "invisibleMeshesCollisionMask": 3
+          }
         }
       }
     },
@@ -1502,6 +1604,216 @@
       },
       "data": {
         "513": {
+          "json": {
+            "material": {
+              "$case": "pbr",
+              "pbr": {
+                "texture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "alphaTest": 0.5,
+                "castShadows": true,
+                "alphaTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "emissiveTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "bumpTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "albedoColor": {
+                  "r": 1,
+                  "g": 0.6470588445663452,
+                  "b": 0,
+                  "a": 1
+                },
+                "emissiveColor": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "reflectivityColor": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "transparencyMode": 4,
+                "metallic": 0.5,
+                "roughness": 0.5,
+                "specularIntensity": 1,
+                "emissiveIntensity": 0,
+                "directIntensity": 1
+              }
+            }
+          }
+        },
+        "558": {
+          "json": {
+            "material": {
+              "$case": "pbr",
+              "pbr": {
+                "texture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "alphaTest": 0.5,
+                "castShadows": true,
+                "alphaTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "emissiveTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "bumpTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
+                    }
+                  }
+                },
+                "albedoColor": {
+                  "r": 1,
+                  "g": 0.6470588445663452,
+                  "b": 0,
+                  "a": 1
+                },
+                "emissiveColor": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "reflectivityColor": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "transparencyMode": 4,
+                "metallic": 0.5,
+                "roughness": 0.5,
+                "specularIntensity": 1,
+                "emissiveIntensity": 0,
+                "directIntensity": 1
+              }
+            }
+          }
+        },
+        "563": {
           "json": {
             "material": {
               "$case": "pbr",
@@ -1625,6 +1937,24 @@
               "box": {}
             }
           }
+        },
+        "558": {
+          "json": {
+            "collisionMask": 2,
+            "mesh": {
+              "$case": "box",
+              "box": {}
+            }
+          }
+        },
+        "563": {
+          "json": {
+            "collisionMask": 2,
+            "mesh": {
+              "$case": "box",
+              "box": {}
+            }
+          }
         }
       }
     },
@@ -1638,6 +1968,26 @@
       },
       "data": {
         "513": {
+          "json": {
+            "mesh": {
+              "$case": "box",
+              "box": {
+                "uvs": []
+              }
+            }
+          }
+        },
+        "558": {
+          "json": {
+            "mesh": {
+              "$case": "box",
+              "box": {
+                "uvs": []
+              }
+            }
+          }
+        },
+        "563": {
           "json": {
             "mesh": {
               "$case": "box",
@@ -1887,6 +2237,11 @@
             "value": "Peak"
           }
         },
+        "558": {
+          "json": {
+            "value": "Light Ref_2"
+          }
+        },
         "560": {
           "json": {
             "value": "Stone 3_2"
@@ -1900,6 +2255,16 @@
         "562": {
           "json": {
             "value": "wenmoon"
+          }
+        },
+        "563": {
+          "json": {
+            "value": "Light Ref_2_3"
+          }
+        },
+        "564": {
+          "json": {
+            "value": "zombie"
           }
         }
       }
@@ -2037,6 +2402,16 @@
       },
       "data": {
         "513": {
+          "json": {
+            "visible": false
+          }
+        },
+        "558": {
+          "json": {
+            "visible": false
+          }
+        },
+        "563": {
           "json": {
             "visible": false
           }
@@ -2213,6 +2588,13 @@
             ]
           }
         },
+        "558": {
+          "json": {
+            "tags": [
+              "LightSource"
+            ]
+          }
+        },
         "560": {
           "json": {
             "tags": [
@@ -2233,6 +2615,13 @@
               "NPC"
             ]
           }
+        },
+        "563": {
+          "json": {
+            "tags": [
+              "LightSource"
+            ]
+          }
         }
       }
     },
@@ -2249,9 +2638,9 @@
         "serializationType": "map"
       },
       "data": {
-        "0": {
+        "522": {
           "json": {
-            "gizmo": 0
+            "gizmo": 1
           }
         }
       }
@@ -2753,7 +3142,10 @@
                   557,
                   560,
                   561,
-                  562
+                  562,
+                  558,
+                  563,
+                  564
                 ]
               },
               {
@@ -2970,6 +3362,18 @@
               },
               {
                 "entity": 562,
+                "children": []
+              },
+              {
+                "entity": 558,
+                "children": []
+              },
+              {
+                "entity": 563,
+                "children": []
+              },
+              {
+                "entity": 564,
                 "children": []
               }
             ]
@@ -3343,6 +3747,9 @@
         "557": {
           "json": {}
         },
+        "558": {
+          "json": {}
+        },
         "560": {
           "json": {}
         },
@@ -3350,6 +3757,12 @@
           "json": {}
         },
         "562": {
+          "json": {}
+        },
+        "563": {
+          "json": {}
+        },
+        "564": {
           "json": {}
         }
       }
@@ -3500,6 +3913,11 @@
         "520": {
           "json": {
             "assetId": "f0980820-4070-45ec-8e57-979b45b62f98"
+          }
+        },
+        "564": {
+          "json": {
+            "assetId": "67e69a91-0413-452f-b6b3-c3643c3187fe"
           }
         }
       }

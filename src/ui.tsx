@@ -17,7 +17,7 @@ const ui = () => (
         width: 'auto',
         height: 'auto',
         positionType: 'absolute',
-        position: { right: '16px', bottom: '16px' }
+        position: { right: '48px', top: '16px' }
       }}
       uiText={{
         value: `Gold: ${getGold()}`,
