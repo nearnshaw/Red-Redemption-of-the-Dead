@@ -18,8 +18,8 @@ import {
 import { Vector3, Quaternion } from '@dcl/sdk/math'
 import { currentPlayerId, getPlayerPosition } from '../modules/helpers'
 import { parentEntity, syncEntity, getParent, getChildren, removeParent } from '@dcl/sdk/network'
-import { addGold, getGold } from '../modules/gold'
-import { openDialog } from '../modules/dialog'
+import { addGold } from '../modules/gold'
+import { tryOpenNpcDialog } from '../modules/npcToolkit'
 
 
 export const Grabbed = engine.defineComponent('Grabbed', { avatarId: Schemas.String })
@@ -139,14 +139,8 @@ export function grabSystem() {
   const tryTalkCommand = inputSystem.getInputCommand(InputAction.IA_PRIMARY, PointerEventType.PET_DOWN)
   if (tryTalkCommand) {
     const hitEntity = tryTalkCommand.hit?.entityId as Entity
-    if (hitEntity && (Array.from(engine.getEntitiesByTag('NPC')).includes(hitEntity))) {
-      const gold = getGold()
-      if (gold <= 0) {
-        openDialog('Wenmoon: You have no gold. Go away.')
-      } else {
-        openDialog('Wenmoon: I see you have some gold. I can sell you licor.')
-      }
-      return
+    if (hitEntity && Array.from(engine.getEntitiesByTag('NPC')).includes(hitEntity)) {
+      if (tryOpenNpcDialog(hitEntity)) return
     }
   }
 
@@ -179,13 +173,7 @@ export function grabSystem() {
 
       // If clicking an NPC (e.g., Wenmoon), open dialog based on gold and do not drop
       if (Array.from(engine.getEntitiesByTag('NPC')).includes(hitEntity)) {
-        const gold = getGold()
-        if (gold <= 0) {
-          openDialog("Wenmoon: You have no gold. Go away.")
-        } else {
-          openDialog("Wenmoon: I see you have some gold. I can sell you licor.")
-        }
-        return
+        if (tryOpenNpcDialog(hitEntity)) return
       }
 
       // Detach from hand and place at clicked position

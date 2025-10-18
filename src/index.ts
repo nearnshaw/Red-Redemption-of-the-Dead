@@ -5,6 +5,7 @@ import { onPlayerExpressionObservable } from '@dcl/sdk/observables'
 import { addLights } from './modules/lights'
 import { setupUI } from './ui'
 import { resetGold } from './modules/gold'
+import { setupToolkitNPCs } from './modules/npcToolkit'
 import { setupZombieAI, zombieSystem } from './modules/zombieAI'
 
 
@@ -18,5 +19,6 @@ export function main() {
     addLights()
     setupZombieAI()
     engine.addSystem(zombieSystem)
+    setupToolkitNPCs()
  
 }

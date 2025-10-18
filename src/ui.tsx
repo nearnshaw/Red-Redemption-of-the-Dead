@@ -2,7 +2,7 @@ import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
 import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 import { Color4 } from '@dcl/sdk/math'
 import { getGold } from './modules/gold'
-import { isDialogOpen, getDialogText, closeDialog } from './modules/dialog'
+import { isDialogOpen, getDialogText, advanceDialog } from './modules/dialog'
 
 export function setupUI() {
   ReactEcsRenderer.setUiRenderer(ui)
@@ -49,7 +49,7 @@ const ui = () => (
             color: Color4.White(),
             textWrap: 'wrap'
           }}
-          onMouseDown={() => closeDialog()}
+          onMouseDown={() => advanceDialog()}
         />
       </UiEntity>
     )}
