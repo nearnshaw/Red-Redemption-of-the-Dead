@@ -496,16 +496,16 @@
               "y": 0,
               "z": 26
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -1042,16 +1042,16 @@
               "y": 3,
               "z": 8.5
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -1126,16 +1126,16 @@
               "y": 3,
               "z": 8.5
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -1147,16 +1147,16 @@
               "y": 0,
               "z": 39.75
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -2638,9 +2638,9 @@
         "serializationType": "map"
       },
       "data": {
-        "522": {
+        "0": {
           "json": {
-            "gizmo": 1
+            "gizmo": 0
           }
         }
       }
@@ -2973,15 +2973,13 @@
           "json": {
             "name": "Red Redemption of the Dead",
             "description": "Empty Scene Template",
+            "thumbnail": "",
             "ageRating": "T",
             "categories": [],
             "author": "SDK",
+            "email": "",
             "tags": [],
             "layout": {
-              "base": {
-                "x": 0,
-                "y": 0
-              },
               "parcels": [
                 {
                   "x": 0,
@@ -3019,8 +3017,14 @@
                   "x": 2,
                   "y": 2
                 }
-              ]
+              ],
+              "base": {
+                "x": 0,
+                "y": 0
+              }
             },
+            "silenceVoiceChat": false,
+            "disablePortableExperiences": false,
             "skyboxConfig": {
               "fixedTime": 86340
             },

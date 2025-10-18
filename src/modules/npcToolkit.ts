@@ -1,22 +1,36 @@
 import { engine, Transform, GltfContainer, Entity, pointerEventsSystem, InputAction, PointerEvents, ColliderLayer } from '@dcl/sdk/ecs'
-import { Dialog } from 'dcl-npc-toolkit'
-import { startDialog } from '../modules/dialog'
+import { openDialogWindow, Dialog } from 'dcl-npc-toolkit'
+import { npcDataComponent } from 'dcl-npc-toolkit/dist/npc'
+import { addDialog } from 'dcl-npc-toolkit/dist/dialog'
 import { getGold } from '../modules/gold'
 
 let wenmoonEntity: Entity | null = null
 
-// Shared dialog sequences
-const dialogsNoGold: Dialog[] = [
-  { text: "Wenmoon: Empty pockets, huh?", isEndOfDialog: false } as Dialog,
-  { text: "Wenmoon: It's dangerous outside—sand cuts, sky burns, and the dead have a terrific work ethic.", isEndOfDialog: false } as Dialog,
-  { text: "Wenmoon: Come back with gold. I'm not a charity; I'm barely a person.", isEndOfDialog: true } as Dialog
-]
-
-const dialogsHasGold: Dialog[] = [
-  { text: "Wenmoon: I hear the jingle of hope—gold.", isEndOfDialog: false } as Dialog,
-  { text: "Wenmoon: Careful out there: roads bite, locals nibble, and sunrise is more of a threat than a promise.", isEndOfDialog: false } as Dialog,
-  { text: "Wenmoon: I can sell you licor; it won't save you, but it pairs nicely with screaming.", isEndOfDialog: true } as Dialog
-]
+function ensureNpcToolkitData(entity: Entity) {
+  if (npcDataComponent.has(entity)) return
+  npcDataComponent.set(entity as any, {
+    introduced: false,
+    inCooldown: false,
+    coolDownDuration: 5,
+    faceUser: undefined,
+    walkingSpeed: 2,
+    walkingAnim: undefined,
+    pathData: undefined,
+    currentPathData: [],
+    manualStop: false,
+    pathIndex: 0,
+    state: 'STANDING',
+    idleAnim: 'Idle',
+    bubbleHeight: undefined,
+    bubbleSound: undefined,
+    hasBubble: false,
+    turnSpeed: 2,
+    theme: 'https://decentraland.org/images/ui/light-atlas-v3.png',
+    bubbleXOffset: 0,
+    bubbleYOffset: 0,
+    lastPlayedAnim: 'Idle'
+  })
+}
 
 export function setupToolkitNPCs() {
   // Find the existing NPC placed in the visual editor
@@ -44,9 +58,15 @@ export function setupToolkitNPCs() {
   if (!npcEntity) return
   wenmoonEntity = npcEntity
 
-  // Dialogs are defined at module scope
+  const dialogs: Dialog[] = [
+    { text: 'Wenmoon: No gold? Bold move. Outside is a snack bar for the dead - and you are the snack. Grab a pickaxe and dig your own fortune before something digs into you.', isEndOfDialog: true } as Dialog,
+    { text: 'Wenmoon: Careful out there, it is basically a zombie buffet and you are the appetizer. I see you have some gold; I can sell you a little licor to steady your nerves.', isEndOfDialog: true } as Dialog
+  ]
 
-  // We handle dialog via custom UI; no toolkit dialog attachment
+  // Attach toolkit dialog UI to the existing NPC entity
+  addDialog(npcEntity)
+  // Using React-UI dialogs via openDialogWindow; no bubble setup required
+  ensureNpcToolkitData(npcEntity)
 
   // Ensure pointer collisions and a single pointer event are set on the NPC
   if (GltfContainer.has(npcEntity)) {
@@ -77,8 +97,9 @@ export function setupToolkitNPCs() {
     () => {
       console.log('NPC clicked -> opening dialog via NPC Toolkit')
       const gold = getGold()
-      const dialogs = gold <= 0 ? dialogsNoGold : dialogsHasGold
-      startDialog(dialogs.map(d => d.text))
+      const startIndex = gold <= 0 ? 0 : 1
+      ensureNpcToolkitData(npcEntity as Entity)
+      openDialogWindow(npcEntity as Entity, dialogs, startIndex)
     }
   )
 }
@@ -97,8 +118,15 @@ export function tryOpenNpcDialog(entityHit: Entity): boolean {
 
   // Open dialog on the resolved NPC entity
   const gold = getGold()
-  const dialogs = gold <= 0 ? dialogsNoGold : dialogsHasGold
-  startDialog(dialogs.map(d => d.text))
+  const startIndex = gold <= 0 ? 0 : 1
+  const dialogs: Dialog[] = [
+    { text: 'Wenmoon: No gold? Bold move. Outside is a snack bar for the dead - and you are the snack. Grab a pickaxe and dig your own fortune before something digs into you.', isEndOfDialog: true } as Dialog,
+    { text: 'Wenmoon: Careful out there, it is basically a zombie buffet and you are the appetizer. I see you have some gold; I can sell you a little licor to steady your nerves.', isEndOfDialog: true } as Dialog
+  ]
+  addDialog(current)
+  // Open React-UI dialog window
+  ensureNpcToolkitData(current)
+  openDialogWindow(current, dialogs, startIndex)
   return true
 }
 
