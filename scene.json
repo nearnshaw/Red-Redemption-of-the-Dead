@@ -62,11 +62,11 @@
     "portableExperiences": "enabled"
   },
   "skyboxConfig": {
-    "fixedTime": 43200
+    "fixedTime": 86340
   },
   "source": {
     "origin": "creator-hub",
-    "projectId": "017f0f70-df49-46c8-8620-a985cb50c993"
+    "projectId": "83b64b39-861a-4305-bf07-e1e57fca3b40"
   },
   "rating": "T"
 }
