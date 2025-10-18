@@ -1,9 +1,36 @@
 import { engine, Transform, GltfContainer, Entity, pointerEventsSystem, InputAction, PointerEvents, ColliderLayer } from '@dcl/sdk/ecs'
-import { openDialogWindow, talkBubble, Dialog } from 'dcl-npc-toolkit'
+import { openDialogWindow, Dialog } from 'dcl-npc-toolkit'
+import { npcDataComponent } from 'dcl-npc-toolkit/dist/npc'
 import { addDialog } from 'dcl-npc-toolkit/dist/dialog'
 import { getGold } from '../modules/gold'
 
 let wenmoonEntity: Entity | null = null
+
+function ensureNpcToolkitData(entity: Entity) {
+  if (npcDataComponent.has(entity)) return
+  npcDataComponent.set(entity as any, {
+    introduced: false,
+    inCooldown: false,
+    coolDownDuration: 5,
+    faceUser: undefined,
+    walkingSpeed: 2,
+    walkingAnim: undefined,
+    pathData: undefined,
+    currentPathData: [],
+    manualStop: false,
+    pathIndex: 0,
+    state: 'STANDING',
+    idleAnim: 'Idle',
+    bubbleHeight: undefined,
+    bubbleSound: undefined,
+    hasBubble: false,
+    turnSpeed: 2,
+    theme: 'https://decentraland.org/images/ui/light-atlas-v3.png',
+    bubbleXOffset: 0,
+    bubbleYOffset: 0,
+    lastPlayedAnim: 'Idle'
+  })
+}
 
 export function setupToolkitNPCs() {
   // Find the existing NPC placed in the visual editor
@@ -38,6 +65,8 @@ export function setupToolkitNPCs() {
 
   // Attach toolkit dialog UI to the existing NPC entity
   addDialog(npcEntity)
+  // Using React-UI dialogs via openDialogWindow; no bubble setup required
+  ensureNpcToolkitData(npcEntity)
 
   // Ensure pointer collisions and a single pointer event are set on the NPC
   if (GltfContainer.has(npcEntity)) {
@@ -69,8 +98,8 @@ export function setupToolkitNPCs() {
       console.log('NPC clicked -> opening dialog via NPC Toolkit')
       const gold = getGold()
       const startIndex = gold <= 0 ? 0 : 1
-      // Use bubble UI to avoid React-based toolkit UI crashes
-      talkBubble(npcEntity as Entity, dialogs, startIndex)
+      ensureNpcToolkitData(npcEntity as Entity)
+      openDialogWindow(npcEntity as Entity, dialogs, startIndex)
     }
   )
 }
@@ -95,8 +124,9 @@ export function tryOpenNpcDialog(entityHit: Entity): boolean {
     { text: 'Wenmoon: I see you have some gold. I can sell you licor.', isEndOfDialog: true } as Dialog
   ]
   addDialog(current)
-  // Use bubble UI fallback
-  talkBubble(current, dialogs, startIndex)
+  // Open React-UI dialog window
+  ensureNpcToolkitData(current)
+  openDialogWindow(current, dialogs, startIndex)
   return true
 }
 

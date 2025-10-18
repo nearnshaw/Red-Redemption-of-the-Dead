@@ -2,6 +2,7 @@ import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
 import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 import { Color4 } from '@dcl/sdk/math'
 import { getGold } from './modules/gold'
+import { NpcUtilsUi } from 'dcl-npc-toolkit'
 
 export function setupUI() {
   ReactEcsRenderer.setUiRenderer(ui)
@@ -26,6 +27,6 @@ const ui = () => (
       }}
     />
 
-    {/* Toolkit's React UI disabled; using bubble UI instead */}
+    <NpcUtilsUi />
   </UiEntity>
 )
