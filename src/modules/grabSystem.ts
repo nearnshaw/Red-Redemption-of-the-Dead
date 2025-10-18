@@ -16,10 +16,10 @@ import {
   ColliderLayer
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion } from '@dcl/sdk/math'
+import { tryOpenNpcDialog } from './npcToolkit'
 import { currentPlayerId, getPlayerPosition } from '../modules/helpers'
 import { parentEntity, syncEntity, getParent, getChildren, removeParent } from '@dcl/sdk/network'
 import { addGold, getGold } from '../modules/gold'
-import { openDialog } from '../modules/dialog'
 
 
 export const Grabbed = engine.defineComponent('Grabbed', { avatarId: Schemas.String })
@@ -81,50 +81,7 @@ export function addPointerEvents() {
     })
   }
 
-  // NPCs (Wenmoon) - ensure clickable even if the tag is missing by falling back to src name
-  const npcEntitiesList: Entity[] = Array.from(engine.getEntitiesByTag('NPC'))
-  if (npcEntitiesList.length === 0) {
-    for (const [entity] of engine.getEntitiesWith(GltfContainer)) {
-      const gltf = GltfContainer.getOrNull(entity)
-      if (gltf && (gltf.src?.toLowerCase().includes('wenmoon') || gltf.src?.toLowerCase().includes('npc'))) {
-        npcEntitiesList.push(entity)
-      }
-    }
-  }
-  for (const entity of npcEntitiesList) {
-    PointerEvents.createOrReplace(entity, {
-      pointerEvents: [
-        {
-          eventType: 1,
-          eventInfo: {
-            button: InputAction.IA_PRIMARY,
-            hoverText: 'Talk',
-            maxDistance: 10,
-            showFeedback: true,
-            showHighlight: true
-          }
-        }
-      ]
-    })
-  }
-
-  const npcEntities2 = engine.getEntitiesByTag('NPC')
-  for (const entity of npcEntities2) {
-    PointerEvents.createOrReplace(entity, {
-      pointerEvents: [
-        {
-          eventType: 1,
-          eventInfo: {
-            button: InputAction.IA_PRIMARY,
-            hoverText: 'Talk',
-            maxDistance: 10,
-            showFeedback: true,
-            showHighlight: true
-          }
-        }
-      ]
-    })
-  }
+  // NPC Toolkit handles NPC click/hover. Avoid duplicating hover hints.
 
 }
 
@@ -135,17 +92,11 @@ export function grabSystem() {
     return
   }
 
-  // Handle NPC interaction on click (works even when not holding an item)
+  // NPC Toolkit handles dialog; intercept NPC clicks here to ensure deepest mesh clicks are handled
   const tryTalkCommand = inputSystem.getInputCommand(InputAction.IA_PRIMARY, PointerEventType.PET_DOWN)
   if (tryTalkCommand) {
     const hitEntity = tryTalkCommand.hit?.entityId as Entity
-    if (hitEntity && (Array.from(engine.getEntitiesByTag('NPC')).includes(hitEntity))) {
-      const gold = getGold()
-      if (gold <= 0) {
-        openDialog('Wenmoon: You have no gold. Go away.')
-      } else {
-        openDialog('Wenmoon: I see you have some gold. I can sell you licor.')
-      }
+    if (hitEntity && tryOpenNpcDialog(hitEntity)) {
       return
     }
   }
@@ -177,14 +128,8 @@ export function grabSystem() {
         return
       }
 
-      // If clicking an NPC (e.g., Wenmoon), open dialog based on gold and do not drop
+      // If clicking an NPC, let the toolkit handle interaction; do not drop
       if (Array.from(engine.getEntitiesByTag('NPC')).includes(hitEntity)) {
-        const gold = getGold()
-        if (gold <= 0) {
-          openDialog("Wenmoon: You have no gold. Go away.")
-        } else {
-          openDialog("Wenmoon: I see you have some gold. I can sell you licor.")
-        }
         return
       }
 
