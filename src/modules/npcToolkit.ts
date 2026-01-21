@@ -62,8 +62,8 @@ export function setupToolkitNPCs() {
   wenmoonEntity = npcEntity
 
   const dialogs: Dialog[] = [
-    { text: 'Wenmoon: No gold? Bold move. Outside is a snack bar for the dead - and you are the snack. Grab a pickaxe and dig your own fortune before something digs into you.', portrait: wenmoonPortrait, isEndOfDialog: true } as Dialog,
-    { text: 'Wenmoon: Careful out there, it is basically a zombie buffet and you are the appetizer. I see you have some gold; I can sell you a little licor to steady your nerves.', portrait: wenmoonPortrait, isEndOfDialog: true } as Dialog
+    { text: 'No gold? Bold move. Outside is a snack bar for the dead - and you are the snack. Grab a pickaxe and dig your own fortune before something digs into you.', portrait: wenmoonPortrait, isEndOfDialog: true } as Dialog,
+    { text: 'Careful out there, it is basically a zombie buffet and you are the appetizer. I see you have some gold; I can sell you a little licor to steady your nerves.', portrait: wenmoonPortrait, isEndOfDialog: true } as Dialog
   ]
 
   // Attach toolkit dialog UI to the existing NPC entity

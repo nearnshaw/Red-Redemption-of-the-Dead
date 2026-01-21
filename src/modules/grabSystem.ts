@@ -13,7 +13,8 @@ import {
   AudioSource,
   PointerEvents,
   GltfContainer,
-  ColliderLayer
+  ColliderLayer,
+  getWorldPosition
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion } from '@dcl/sdk/math'
 import { tryOpenNpcDialog } from './npcToolkit'
@@ -133,11 +134,48 @@ export function grabSystem() {
         return
       }
 
+      // Check if we're dropping on a surface (check hitEntity and its parent)
+      let surfaceEntity: Entity | null = null
+      if (hitEntity) {
+        // Check if hitEntity itself is a surface
+        if (Array.from(engine.getEntitiesByTag('Surface')).includes(hitEntity)) {
+          surfaceEntity = hitEntity
+        } else {
+          // Check if parent is a surface
+          const parent = getParent(hitEntity)
+          if (parent && Array.from(engine.getEntitiesByTag('Surface')).includes(parent)) {
+            surfaceEntity = parent
+          }
+        }
+      }
+      
+      let dropPosition = hitPosition
+      let dropParent: Entity = engine.RootEntity
+
+      if (surfaceEntity) {
+        // Calculate local position relative to the surface entity
+        const surfaceWorldPos = getWorldPosition(engine, surfaceEntity)
+        const surfaceTransform = Transform.getOrNull(surfaceEntity)
+        
+        if (surfaceTransform) {
+          // Calculate offset from surface world position to drop position
+          const offset = Vector3.subtract(hitPosition, surfaceWorldPos)
+          
+          // Rotate offset by inverse of surface rotation to get local space
+          // For unit quaternions, inverse = conjugate (negate x, y, z, keep w)
+          const q = surfaceTransform.rotation
+          const inverseRotation = Quaternion.create(-q.x, -q.y, -q.z, q.w)
+          dropPosition = Vector3.rotate(offset, inverseRotation)
+          
+          dropParent = surfaceEntity
+        }
+      }
+
       // Detach from hand and place at clicked position
       //removeParent(pickedUpChild)
       Transform.createOrReplace(pickedUpChild, {
-        position: hitPosition,
-        parent: engine.RootEntity
+        position: dropPosition,
+        parent: dropParent
       })
 
       // Restore pointer collisions so it can be grabbed again
@@ -172,6 +210,7 @@ export function grabSystem() {
       console.log('ENTITY CLICKED', entity)
 
       const offsetParent = engine.addEntity()
+      Transform.createOrReplace(offsetParent)
       Grabbed.create(offsetParent, { avatarId: currentPlayerId })
 
       if(GltfContainer.has(entity)) {
@@ -194,6 +233,12 @@ export function grabSystem() {
       parentEntity(entity, offsetParent)
 
       AudioSource.playSound(entity, 'assets/scene/Audio/pickUp.mp3', true)
+
+      setInterval(() => {
+        const localPos = Transform.get(offsetParent)?.position
+        const worldPos = getWorldPosition(engine, offsetParent)
+        console.log('ENTITY POSITION, LOCAL:', localPos ? `(${localPos.x.toFixed(2)}, ${localPos.y.toFixed(2)}, ${localPos.z.toFixed(2)})` : 'null', 'WORLD:', `(${worldPos.x.toFixed(2)}, ${worldPos.y.toFixed(2)}, ${worldPos.z.toFixed(2)})`)
+      }, 1000)
     }
   }
 }

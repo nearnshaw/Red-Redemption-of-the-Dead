@@ -2,7 +2,7 @@
   "ecs7": true,
   "runtimeVersion": "7",
   "display": {
-    "title": "Red Redemption of the Dead",
+    "title": "Global position tests",
     "description": "Empty Scene Template",
     "favicon": "favicon_asset",
     "navmapThumbnail": ""
@@ -59,8 +59,8 @@
     "ALLOW_MEDIA_HOSTNAMES"
   ],
   "allowedMediaHostnames": [
-		"decentraland.org"
-	],
+    "decentraland.org"
+  ],
   "featureToggles": {
     "voiceChat": "enabled",
     "portableExperiences": "enabled"
@@ -72,5 +72,6 @@
     "origin": "creator-hub",
     "projectId": "83b64b39-861a-4305-bf07-e1e57fca3b40"
   },
-  "rating": "T"
+  "rating": "T",
+  "creator": ""
 }

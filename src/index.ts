@@ -6,20 +6,19 @@ import { addLights } from './modules/lights'
 import { setupUI } from './ui'
 import { setupToolkitNPCs } from './modules/npcToolkit'
 import { resetGold } from './modules/gold'
-import { setupZombieAI, zombieSystem } from './modules/zombieAI'
+import { initHealth } from './modules/health'
 
 
 export function main() {
 
     getPlayerID()
     resetGold()
+    initHealth(10)
     addPointerEvents()
     setupUI()
 	engine.addSystem(grabSystem)
     addLights()
     setupToolkitNPCs()
-    setupZombieAI()
-    engine.addSystem(zombieSystem)
     setupToolkitNPCs()
  
 }
